@@ -1,0 +1,33 @@
+<div class="register-container">
+    <div class="register-left">
+      <h2>Create Account</h2>
+      <p>Join us and get started with your personal dashboard.</p>
+  
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <label for="username">Username</label>
+        <input formControlName="username" type="text" id="username" placeholder="Your Username" />
+        <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+          <small>Username is required.</small>
+        </div>
+  
+        <label for="password">Password</label>
+        <input formControlName="password" type="password" id="password" placeholder="******" />
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          <small>Password must be at least 6 characters.</small>
+        </div>
+  
+        <button class="btn-register" type="submit" [disabled]="registerForm.invalid">Register</button>
+      </form>
+  
+      <p>Already have an account? <a href="/login">Log in here</a></p>
+    </div>
+  
+    <div class="register-right">
+      <div class="register-info">
+        <h3>Why join us?</h3>
+        <p>By registering, you can manage your account, view your profile, and access more features.</p>
+        <img src="https://preview.redd.it/oec611yas0j71.png?width=2144&format=png&auto=webp&s=72d3841e973387b61f43909fa981842be64a2bcf" alt="Dashboard example">
+      </div>
+    </div>
+  </div>
+  

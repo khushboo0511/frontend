@@ -1,0 +1,35 @@
+<div class="login-container">
+    <div class="login-left">
+      <h2>Welcome Back! 👋</h2>
+      <p>How do I get started?</p>
+      <button class="btn btn-google">Sign in with Google</button>
+      <button class="btn btn-apple">Sign in with X</button>
+      <p>or Login with Email</p>
+      <div class="login-container">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <label for="email">Email</label>
+          <input formControlName="username" type="email" id="username" placeholder="test@example.com" />
+          <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+
+          </div>
+      
+          <label for="password">Password</label>
+          <input formControlName="password" type="password" id="password" placeholder="******" />
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <small>Password is required.</small>
+          </div>
+      
+          <button class="btn-signin" type="submit" [disabled]="loginForm.invalid">Sign In</button>
+        </form>
+      </div>
+      
+      <p>Don't have an account? <a href="/register">Sign Up Now</a></p>
+    </div>
+    <div class="login-right">
+      <div class="login-info">
+        <h3>Why should I login?</h3>
+        <p>By logging in, you can access your personal dashboard, where you can manage your account, view your profile, and much more.</p>
+        <img src="https://preview.redd.it/oec611yas0j71.png?width=2144&format=png&auto=webp&s=72d3841e973387b61f43909fa981842be64a2bcf" alt="Dashboard example">
+      </div>
+    </div>
+  </div>

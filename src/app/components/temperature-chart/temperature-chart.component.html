@@ -1,0 +1,21 @@
+<div class="temperature-container">
+    <h2>City Temperature Data</h2>
+    <table class="temperature-table">
+      <thead>
+        <tr>
+          <th>City</th>
+          <th>Temperature (°C)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let temp of temperatures">
+          <td>{{ temp.city }}</td>
+          <td>{{ temp.temperature }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <h2>Temperature Chart</h2>
+    <canvas id="temperatureChart"></canvas>
+  </div>
+  

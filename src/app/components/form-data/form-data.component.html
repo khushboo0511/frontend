@@ -1,0 +1,92 @@
+<!-- Link to external CSS -->
+<link rel="stylesheet" href="form-data.component.css" />
+
+<div>
+<form [formGroup]="registrationForm" (ngSubmit)="submitForm()">
+  
+  <!-- Country Dropdown -->
+  <div>
+    <label for="country">Country:</label>
+    <select formControlName="country" (change)="onCountryChange($event)">
+      <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+    </select>
+    <div *ngIf="registrationForm.get('country')?.invalid && registrationForm.get('country')?.touched" class="error">
+      Country is required.
+    </div>
+  </div>
+
+  <!-- State Dropdown -->
+  <div>
+    <label for="state">State:</label>
+    <select formControlName="state" (change)="onStateChange($event)">
+      <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+    </select>
+    <div *ngIf="registrationForm.get('state')?.invalid && registrationForm.get('state')?.touched" class="error">
+      State is required.
+    </div>
+  </div>
+
+  <!-- City Dropdown -->
+  <div>
+    <label for="city">City:</label>
+    <select formControlName="city" (change)="onCityChange($event)">
+      <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+    </select>
+    <div *ngIf="registrationForm.get('city')?.invalid && registrationForm.get('city')?.touched" class="error">
+      City is required.
+    </div>
+  </div>
+
+  <!-- Temperature Input -->
+  <div>
+    <label for="temperature">Temperature:</label>
+    <input formControlName="temperature" [disabled]="isTemperatureDisabled" placeholder="Temperature" />
+    <div *ngIf="registrationForm.get('temperature')?.invalid && registrationForm.get('temperature')?.touched" class="error">
+      Temperature is required.
+    </div>
+  </div>
+
+  <!-- Month Dropdown -->
+  <div>
+    <label for="month">Month:</label>
+    <select formControlName="month">
+      <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+    </select>
+    <div *ngIf="registrationForm.get('month')?.invalid && registrationForm.get('month')?.touched" class="error">
+      Month is required.
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="flex-center">
+    <button type="submit" [disabled]="registrationForm.invalid">Submit</button>
+  </div>
+</form>
+
+<!-- Error messages -->
+<div *ngIf="formSubmitAttempt && registrationForm.invalid" class="error-summary">
+  <p>All fields are required! Please fill out the form completely.</p>
+</div>
+
+<!-- Display City Temperature Data -->
+<div class="temperature-container">
+  <h2>City Temperature Data</h2>
+  <table class="temperature-table">
+    <thead>
+      <tr>
+        <th>City</th>
+        <th>Temperature (°C)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let temp of temperatures">
+        <td>{{ temp.city }}</td>
+        <td>{{ temp.temperature }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <h2>Temperature Chart</h2>
+  <canvas id="temperatureChart"></canvas>
+</div>
+</div>
