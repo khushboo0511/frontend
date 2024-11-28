@@ -23,21 +23,53 @@ export class TemperatureChartComponent implements OnInit {
     this.fetchTemperatures();
   }
 
+  // fetchTemperatures(): void {
+  //   this.apiService.getAllCitiesTemperature().subscribe(
+  //     (data: any[]) => {
+  //       this.temperatures = data;
+  //       this.cities = data.map(item => item.city);
+  //       this.cityTemperatures = data.map(item => item.temperature);
+
+  //       // After fetching, call the function to render the chart
+  //       this.renderTemperatureChart();
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching temperature data:', error);
+  //     }
+  //   );
+  // }
+
   fetchTemperatures(): void {
     this.apiService.getAllCitiesTemperature().subscribe(
       (data: any[]) => {
-        this.temperatures = data;
-        this.cities = data.map(item => item.city);
-        this.cityTemperatures = data.map(item => item.temperature);
 
-        // After fetching, call the function to render the chart
+        const cityTemperatureMap = new Map<string, { city: string, temperature: number }>();
+  
+        data.forEach(item => {
+          if (cityTemperatureMap.has(item.city)) {
+            const existing = cityTemperatureMap.get(item.city)!;
+            existing.temperature = (existing.temperature + item.temperature) / 2;  
+          } else {
+            cityTemperatureMap.set(item.city, { city: item.city, temperature: item.temperature });
+          }
+        });
+  
+        const uniqueCitiesData = Array.from(cityTemperatureMap.values());
+  
+        this.temperatures = uniqueCitiesData;
+        this.cities = uniqueCitiesData.map(item => item.city);
+        this.cityTemperatures = uniqueCitiesData.map(item => item.temperature);
+  
         this.renderTemperatureChart();
+  
+        console.log(uniqueCitiesData, "Filtered temp data");
       },
       (error) => {
         console.error('Error fetching temperature data:', error);
       }
     );
   }
+  
 
   renderTemperatureChart(): void {
     const ctx = document.getElementById('temperatureChart') as HTMLCanvasElement;

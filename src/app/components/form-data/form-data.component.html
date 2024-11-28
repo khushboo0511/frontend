@@ -2,7 +2,15 @@
 <link rel="stylesheet" href="form-data.component.css" />
 
 <div>
+  <h1 class="flex justify-center m-5 text-2xl font-semibold "> Welcome {{ username }}! </h1>
+
 <form [formGroup]="registrationForm" (ngSubmit)="submitForm()">
+
+  <ul>
+    <li><strong>User Name:</strong> {{ username }}</li>
+    <li><strong></strong></li>
+    <!-- Add other user details here if available -->
+  </ul>
   
   <!-- Country Dropdown -->
   <div>
@@ -87,6 +95,6 @@
   </table>
   
   <h2>Temperature Chart</h2>
-  <canvas id="temperatureChart"></canvas>
+  <canvas class="bg-black" id="temperatureChart"></canvas>
 </div>
 </div>

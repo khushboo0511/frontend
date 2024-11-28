@@ -102,6 +102,12 @@ form {
     height: 400px;
   }
   
+  #temperatureChart {
+    width: 100%;
+    height: 400px;
+  }
+
+  
   /* Basic styling for error messages */
 .error {
     color: red;
@@ -126,4 +132,5 @@ form {
     justify-content: center;
     margin-top: 20px;
   }
+
   

@@ -19,7 +19,9 @@ export class AuthService {
       data
     ).pipe(
       tap((response) => {
+        console.log(response, "response")
         localStorage.setItem('authToken', response.token);
+        localStorage.setItem('authUser', JSON.stringify(response.user)); 
       })
     );
   }
@@ -37,6 +39,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('authUser');
+    localStorage.removeItem('authToken');
+
   }
 
   isLoggedIn() {
@@ -66,9 +70,14 @@ export class AuthService {
   getTemperature(city: string): Observable<any> {
     return this.http.get<any>(`${this.formUrl}/formData/temperature?city=${city}`);
   }
-  // In AuthService (or api service)
 
 getAllCitiesTemperature(): Observable<any[]> {
-  return this.http.get<any[]>('${this.formUrl}/formData/temperatures'); 
+  return this.http.get<any[]>(`${this.formUrl}/formData/temperatures`); 
 }
+
+getLoggedInUser(): any {
+  const user = localStorage.getItem('authUser');
+  return user ? JSON.parse(user) : null;
+}
+  
 }
